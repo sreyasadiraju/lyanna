@@ -98,10 +98,9 @@ def discard_large_k_modes(spectra, cutoff_k_idx = 257):
     irfft_skewers                 = irfft(fft_skewers)
     return irfft_skewers
 
-def discard_large_k_modes_and_smooth(spectra, k, cutoff_k_idx = 257, R_FWHM = 60000):
+def discard_large_k_modes_and_smooth(spectra, k, cutoff_k_idx = 257, R_FWHM = 10820.21):
     fft_skewers = rfft(spectra)
-    R_sigma     = R_FWHM / 2.35482
-    v_sigma     = 2.998E5 / R_sigma
+    v_sigma     = 2.998E5 / R_FWHM / 2.35482
     kernel      = np.exp(-v_sigma**2 * k**2 / 2.)
     fft_skewers*= kernel
     fft_skewers[:, cutoff_k_idx:] = 0j
